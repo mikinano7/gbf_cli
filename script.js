@@ -19,6 +19,7 @@ function printArrayElement(tweet, index, array) {
         var keyElement = $('#' + key);
         if (tweet.text.includes(this[key]) && !(tweetElement.is('*'))) {
             var helpNum = tweet.text.match(/[A-Z0-9]{8}/);
+            keyElement.prepend('<p class="time">' + new Date(tweet.created_at).toLocaleString() + '</p>');
             keyElement.prepend('<p id="tw_' + tweet.id_str + '"></p>');
             $('#tw_' + tweet.id_str).text('@' + tweet.user.screen_name + ': ' + tweet.text);
             keyElement.prepend('<span>' + helpNum + '</span>');
