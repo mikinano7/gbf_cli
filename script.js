@@ -21,7 +21,7 @@ function printArrayElement(tweet, index, array) {
             var helpNum = tweet.text.match(/[A-Z0-9]{8}/);
             keyElement.prepend('<p id="tw_' + tweet.id_str + '"></p>');
             $('#tw_' + tweet.id_str).text('@' + tweet.user.screen_name + ': ' + tweet.text);
-            keyElement.prepend('<span class="' + helpNum + '">' + helpNum + '</span>');
+            keyElement.prepend('<span>' + helpNum + '</span>');
             keyElement.prepend('<button id="' + helpNum + '" class="copy">copy</button>');
         }
     }, multi);
@@ -29,7 +29,7 @@ function printArrayElement(tweet, index, array) {
 
 $(function(){
     Object.keys(multi).forEach(function(key) {
-    $('#tab').prepend('<li><button name="' + key + '">' + this[key] + '</button></li>');
+        $('#tab').prepend('<li><button>' + this[key] + '</button></li>');
         $('#tweet').prepend('<hr /><div id="' + key + '"></div>');
     }, multi);
 
@@ -39,11 +39,11 @@ $(function(){
 });
 
 $(document).on('click', 'li', function() {
-    var key = $(this).attr('name');
-    var index = $('#tab li').index(this);
-    $('#tweet div').css('display', 'none');
+    var index = $('#tab').children('li').index(this);
+    var tweetBlocks = $('#tweet').find('div');
+    tweetBlocks.css('display', 'none');
     $('hr').css('display', 'none');
-    $('#tweet div').eq(index).css('display','block');
+    tweetBlocks.eq(index).css('display','block');
 });
 
 $(document).on('click', '.copy', function() {
