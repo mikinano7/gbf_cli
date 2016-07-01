@@ -2,14 +2,10 @@ var $ = jQuery = require("./jquery-2.1.4.min.js");
 
 const ipcRenderer = require('electron').ipcRenderer;
 const multi = {
-    'a': '青竜',
-    'b': '玄武',
-    'c': '朱雀',
-    'd': '白虎',
-    'aa': 'ゼピュロス',
-    'bb': 'ネプチューン',
-    'cc': 'アグニス',
-    'dd': 'ティターン'
+    'a': 'ティアマト',
+    'b': 'ユグドラシル',
+    'c': 'リヴァイアサン',
+    'd': 'コロッサス'
 };
 
 //TODO: 無限に追加されてくので置き換え必要
