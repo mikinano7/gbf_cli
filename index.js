@@ -1,14 +1,13 @@
 'use strict';
 
 const Electron = require('electron');
-const {app} = Electron;
-const {BrowserWindow} = Electron;
+const {app, BrowserWindow} = Electron;
 const Config = require('config');
 
 let win;
 
-var twitter = require('twitter');
-var client = new twitter({
+const twitter = require('twitter');
+const client = new twitter({
     consumer_key: Config.consumer_key,
     consumer_secret: Config.consumer_secret,
     access_token_key: Config.access_token_key,
