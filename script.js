@@ -1,20 +1,7 @@
 var $ = jQuery = require("./jquery-2.1.4.min.js");
 
 const ipcRenderer = require('electron').ipcRenderer;
-const multi = {
-    'a': 'ティアマト',
-    'b': 'ユグドラシル',
-    'c': 'リヴァイアサン',
-    'd': 'コロッサス',
-    'e': 'ナタク',
-    'f': 'メドゥーサ',
-    'g': 'マキュラ',
-    'h': 'フラム',
-    'i': 'アポロン',
-    'j': 'オリヴィエ',
-    'k': 'バハムート',
-    'l': 'グランデ'
-};
+var multi = [];
 
 //TODO: 無限に追加されてくので置き換え必要
 function printArrayElement(tweet, index, array) {
@@ -33,13 +20,18 @@ function printArrayElement(tweet, index, array) {
 }
 
 $(function(){
-    Object.keys(multi).forEach(function(key) {
-        $('#tab').prepend('<li><button>' + this[key] + '</button></li>');
-        $('#tweet').prepend('<hr /><div id="' + key + '"></div>');
-    }, multi);
+    ipcRenderer.send('require_setting', '');
 
     ipcRenderer.on('tweet', function(event, arg) {
         JSON.parse(arg).statuses.forEach(printArrayElement);
+    });
+
+    ipcRenderer.on('send_setting', function(event, arg){
+        multi = JSON.parse(arg);
+        Object.keys(multi).forEach(function(key) {
+            $('#tab').prepend('<li><button>' + this[key] + '</button></li>');
+            $('#tweet').prepend('<hr /><div id="' + key + '"></div>');
+        }, multi);
     });
 });
 
@@ -61,4 +53,12 @@ $(document).on('click', '.copy', function() {
     selection.addRange(range);
     document.execCommand('copy');
     selection.removeAllRanges();
+});
+
+const KeyCodeF1 = 112;
+$(document).on('keydown', 'body', function(event){
+    if (event.keyCode === KeyCodeF1) {
+        ipcRenderer.send('setting', '')
+        return false;
+    }
 });
